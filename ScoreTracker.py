@@ -12,10 +12,12 @@ NUM_OF_PLAYERS = 10
 class ImportData:
     
     def __init__(self, fileName):
-        self.gameCount = 0
         self.fileName = fileName
         self.excelData = None
         self.playerStats = {}
+
+        # add team stats
+        self.teamStats = {}
         
         '''
         player stats example
@@ -39,10 +41,9 @@ class ImportData:
         # Print the first few rows of the dataframe
         #print(df.head(21))
 
-        # most likely dont need this
-        # gameCount = len(list(filter(lambda x: x == True, df['Games'].notnull().tolist())))
-        # self.gameCount = gameCount
-        # print(gameCount)
+    def createTeamStats(self):
+        # games = list(filter(lambda x: x == True, df['Games'].notnull().tolist()))
+        pass
     
     def createPlayerStats(self):
         for index, row in self.excelData.iterrows():
