@@ -5,6 +5,7 @@
 # Start of file
 import pandas as pd
 import numpy as np
+import json
 
 NUM_OF_PLAYERS = 10
 
@@ -45,7 +46,20 @@ class ImportData:
     
     def createPlayerStats(self):
         for index, row in self.excelData.iterrows():
-            print(row)
+            player = row['Player']
+            if player not in self.playerStats:
+                self.playerStats[player] = {
+                    'team': row['Team']
+                }
+            
+            self.playerStats[player]['games_played'] = self.playerStats[player].get('games_played', 0) + 1
+            self.playerStats[player]['combat_score'] = self.playerStats[player].get('combat_scoere', 0) + row['Combat Score']
+            self.playerStats[player]['kills'] = self.playerStats[player].get('kills', 0) + row['Kills']
+            self.playerStats[player]['deaths'] = self.playerStats[player].get('deaths', 0) + row['Deaths']
+            self.playerStats[player]['assists'] = self.playerStats[player].get('assists', 0) + row['Assists']
+        
+        print(json.dumps(self.playerStats, indent = 4))
+
 
 
 if __name__ == "__main__":
